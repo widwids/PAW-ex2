@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8" />
+    <title>Exercice 2</title>
+	<style>
+		body              { width: 600px; margin: 30px auto; }
+		h3, p             { width: 600px; }
+		p:first-of-type   { margin-top: 30px; }
+		h3, p, div        { text-align: center; }
+		#glissables       { display: flex; height: 30px; }
+		#glissables > div { margin-right: 10px; width:100px; line-height:30px; background-color: brown; color: white; }
+		#deposables       {margin-top: 50px; }
+		#deposables > div { margin: 15px auto 0; width: 100px; height: 30px; line-height: 30px;	background-color: aqua;	color: white; }
+	</style>
+	<script>
+		window.addEventListener("load", function(){
+ 
+			// fonctions d'initialisation de l'élément glissable et de l'élément déposable
+			// ===========================================================================
+
+			/**
+			 *  Gestion du glisser (drag) pour un élément
+			 *  @param element 
+			 */
+			function appliquerLeGlisser(eGlissable){
+				/*
+				   0,5 pt rendre l'élement glissable (drag)
+
+				   gérer l'évènement "dragstart" :
+ 				      0,5 pt changer la couleur de fond pendant le glisser 
+				      0,5 pt sauvegarder l'id de l'élément à déplacer
+
+				   gérer l'évènement "drag" :
+				      0,5 pt cacher l'élément à son emplacement d'origine pendant le glisser
+
+				   gérer l'évènement "dragend" : 
+				      0,5 pt faire réapparaître l'élément après le glisser
+				      0,5 pt et lui redonner sa couleur de fond d'origine
+			    */
+            }
+ 
+			/**
+			 *  Gestion du déposer (drop) sur un élément
+			 *  @param eDeposable 
+			 */				
+			function appliquerLeDeposer(eDeposable){
+
+				var resultat = [6, 2, 4, 3, 1, 0, 5]; // tableau des bonnes réponses
+
+				/*
+				   gérer l'évènement "dragover" :
+				      0,5 pt autoriser le survol en glissant
+
+				   gérer l'évènement "drop" :
+				      0,5 pt empêcher le comportement par défaut qui ouvre un lien
+				      0,5 pt récupérer l'élément glissable qui vient d'être déposé
+				      0,5 pt si un élément a déjà été déposé dans cette div
+ 				             transférer l'élément existant dans la section "glissables" 
+				      0,5 pt déplacer l'élément déposé dans l'élément "eDeposable" 
+					
+				      0,5 pt afficher le résultat s'il n'y a plus de div dans la section "glissables"
+				             balayer pour cela les div de la section "deposables"
+							 pour chaque div, exploiter l'enfant glissable qu'elle contient :
+								0,5 pt le rendre non "draggable"
+							    0,5 pt extraire son identifiant alphaN et le comparer
+								       au chiffre de même rang du tableau "resultat"
+				                       par exemple l'élément d'id "alpha6" doit être en première position
+				                0,5 pt Si la comparaison est vraie
+								       comptabiliser cette bonne réponse
+				                       lui mettre une couleur de fond verte   
+					         0,5 pt insérer une phrase récapitulative du nombre de bonnes réponses
+						            dans la section glissables 
+				*/
+								
+			}   
+
+			// initialisation des éléments glissables et des éléments déposables
+			// =================================================================
+
+			var eGlissables, eDeposables;
+			/*
+			   1 pt initialiser les div de la section "glissables" avec la fonction appliquerLeGlisser
+			   1 pt initialiser les div de la section "deposables" avec la fonction appliquerLeDeposer
+			*/
+		});
+	</script>
+</head>
+<body>
+	<section id="glissables">
+		<div id="alpha0">Australie</div>
+		<div id="alpha1">Brésil</div>
+		<div id="alpha2">Canada</div>
+		<div id="alpha3">Chine</div>
+		<div id="alpha4">Etats-unis</div>
+		<div id="alpha5">Inde</div>
+		<div id="alpha6">Russie</div>
+	</section>
+	<p>Classer les pays ci-dessus par leur superficie, de la plus grande à la plus petite.</p>
+	<p>Manipuler par "glisser/déposer" dans les cases ci-dessous.</p>
+	<section id="deposables">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</section>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8" />
+    <title>glisser/déposer (drag and drop), déplacement</title>
+	<style>
+		body              { width: 600px; margin: 30px auto; }
+		h3, p             { width: 600px; }
+		p:first-of-type   { margin-top: 30px; }
+		h3, p, div        { text-align: center; }
+		#glissables       { display: flex; height: 30px; }
+		#glissables > div { margin-right: 10px; width:100px; line-height:30px; background-color: brown; color: white; }
+		#deposables       {margin-top: 50px; }
+		#deposables > div { margin: 15px auto 0; width: 100px; height: 30px; line-height: 30px;	background-color: aqua;	color: white; }
+	</style>
+	<script>
+		window.addEventListener("load", function(){
+ 
+			// fonctions d'initialisation de l'élément glissable et de l'élément déposable
+			// ===========================================================================
+
+			/**
+			 *  Gestion du glisser (drag) pour un élément
+			 *  @param element 
+			 */
+			function appliquerLeGlisser(element){
+                
+				element.setAttribute("draggable", true);               // rendre l'élement glissable (drag)
+
+				element.addEventListener("dragstart", function(evt){   // gérer l'évènement "dragstart"
+					
+					evt.target.style.backgroundColor = "orange";       // changer la couleur de fond pendant le glisser 
+					evt.dataTransfer.setData("text", evt.target.id);   // sauvegarder l'id de l'élément à déplacer
+					                                                   // pour pouvoir le réutiliser lorsque l'élément sera déposé 
+                }) ;
+
+				element.addEventListener("drag", function(evt){        // gérer l'évènement "drag"
+
+					evt.target.style.opacity = 0;                      // cacher l'élément à son emplacement d'origine pendant le glisser
+                });
+				
+				element.addEventListener("dragend", function(evt){     // gérer l'évènement "dragend"
+  
+					evt.target.style.opacity = 1;                      // faire réapparaître l'élément après le glisser
+					if (evt.target.style.backgroundColor
+						!== "mediumseagreen")
+						evt.target.style.backgroundColor = "brown";    // et lui redonner sa couleur de fond d'origine
+                });
+            }
+ 
+			/**
+			 *  Gestion du déposer (drop) sur un élément
+			 *  @param eDeposable 
+			 */				
+			function appliquerLeDeposer(eDeposable){              
+
+				eDeposable.addEventListener("dragover", function(evt){ // gérer l'évènement "dragover", pour autoriser le survol en glissant,
+					evt.preventDefault();                              // pour cela empêcher le comportement par défaut qui interdit le "déposer"           
+				}); 	 
+
+				eDeposable.addEventListener("drop", function(evt){     // gérer l'évènement "drop"
+					                                                   // lorsqu'un élément glissable vient d'être déposé sur l'élément "eDeposable"  
+					evt.preventDefault();                              // empêcher le comportement par défaut qui ouvre un lien
+
+					var eDepose = document.getElementById(
+							      evt.dataTransfer.getData("text"));   // récupération de l'élément glissable qui vient d'être déposé
+
+					if (eDeposable.children.length !== 0) {            // un élément a déjà été déposé dans cette div
+ 						document.
+						   getElementById("glissables").
+						   appendChild(eDeposable.firstElementChild);  // transfert de l'élément existant dans la section "glissables" 
+					}
+					eDeposable.appendChild(eDepose);                   // déplacement de l'élément déposé "eDepose" dans l'élément "eDeposable" 
+					
+					if (document.querySelectorAll("#glissables div").length === 0) {
+						var nb = 0;
+						var resultat = [6, 2, 4, 3, 1, 0, 5];
+						for (var i = 0; i < 7; i++) {
+							eDeposables[i].firstElementChild.draggable = false;
+							var id = eDeposables[i].firstElementChild.id;
+							if (id.slice(-1) == resultat[i]) {
+								eDeposables[i].firstElementChild.style.backgroundColor = "mediumseagreen";
+								nb++;
+							}
+						}
+						document.getElementById("glissables").innerHTML = "<h3>" + nb + " bonne(s) réponse(s) sur 7.</h3>";					}
+				}); 
+			}   
+
+			// initialisation des éléments glissables et des éléments déposables
+			// =================================================================
+
+			var eGlissables = document.querySelectorAll("#glissables div");
+			for (var i = 0; i < eGlissables.length; i++) appliquerLeGlisser(eGlissables[i]);
+			var eDeposables = document.querySelectorAll("#deposables div");
+			for (var i = 0; i < eDeposables.length; i++)appliquerLeDeposer(eDeposables[i]);
+		});
+	</script>
+</head>
+<body>
+	<section id="glissables">
+		<div id="alpha0">Australie</div>
+		<div id="alpha1">Brésil</div>
+		<div id="alpha2">Canada</div>
+		<div id="alpha3">Chine</div>
+		<div id="alpha4">Etats-unis</div>
+		<div id="alpha5">Inde</div>
+		<div id="alpha6">Russie</div>
+	</section>
+	<p>Classer les pays ci-dessus par leur superficie, de la plus grande à la plus petite.</p>
+	<p>Manipuler par "glisser/déposer" dans les cases ci-dessous.</p>
+	<section id="deposables">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</section>
+</body>
+</html>
