@@ -20,14 +20,23 @@
 			// ===========================================================================
 
 			/**
+
 			 *  Gestion du glisser (drag) pour un élément
 			 *  @param element 
 			 */
 			function appliquerLeGlisser(eGlissable){
-				/*
-				   0,5 pt rendre l'élement glissable (drag)
+				eGlissable.setAttribute("draggable", true);
+				
 
-				   gérer l'évènement "dragstart" :
+
+
+
+
+
+				/*				  
+				   //0,5 pt rendre l'élement glissable (drag)
+
+				   //gérer l'évènement "dragstart" :
  				      0,5 pt changer la couleur de fond pendant le glisser 
 				      0,5 pt sauvegarder l'id de l'élément à déplacer
 
@@ -78,11 +87,22 @@
 			// initialisation des éléments glissables et des éléments déposables
 			// =================================================================
 
-			var eGlissables, eDeposables;
+			var eGlissables = document.querySelectorAll("#glissables > div");
+
+			for	(var i = 0; i < eGlissables.length; ++i){
+				appliquerLeGlisser(eGlissables[i]);
+			}; 		
+			
+			var eDeposables = document.querySelectorAll("#deposables > div");
+
+			for	(var i = 0; i < eDeposable.length; ++i){
+				appliquerLeDeposer(eDeposables[i]);
+			}; 		
 			/*
 			   1 pt initialiser les div de la section "glissables" avec la fonction appliquerLeGlisser
 			   1 pt initialiser les div de la section "deposables" avec la fonction appliquerLeDeposer
 			*/
+
 		});
 	</script>
 </head>
